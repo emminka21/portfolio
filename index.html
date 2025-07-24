@@ -207,6 +207,92 @@
             100% { transform: rotate(360deg); }
         }
         
+        /* Portfolio Gallery */
+        .portfolio-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 40px;
+        }
+        
+        .portfolio-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .portfolio-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+        
+        .portfolio-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+        
+        .portfolio-item:hover img {
+            transform: scale(1.05);
+        }
+        
+        /* Lightbox */
+        .lightbox {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.9);
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .lightbox img {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+        }
+        
+        .lightbox-close, .lightbox-prev, .lightbox-next {
+            position: absolute;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            padding: 10px 15px;
+            border-radius: 50%;
+            transition: background 0.3s ease;
+        }
+        
+        .lightbox-close:hover, .lightbox-prev:hover, .lightbox-next:hover {
+            background: rgba(255,255,255,0.3);
+        }
+        
+        .lightbox-close {
+            top: 20px;
+            right: 20px;
+        }
+        
+        .lightbox-prev {
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        
+        .lightbox-next {
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        
         /* Responsive */
         @media (max-width: 768px) {
             .main-title {
@@ -231,8 +317,19 @@
                 padding: 40px 20px;
             }
             
-            .pdf-viewer {
-                height: 600px;
+            .portfolio-gallery {
+                grid-template-columns: 1fr;
+            }
+            
+            .lightbox-prev, .lightbox-next {
+                font-size: 1.5rem;
+                padding: 8px 12px;
+            }
+            
+            .lightbox-close {
+                top: 10px;
+                right: 10px;
+                font-size: 1.5rem;
             }
         }
     </style>
@@ -260,48 +357,15 @@
                 <p style="color: #7f8c8d; margin-bottom: 40px; font-size: 1.1rem;">Několik vybraných projektů z mé práce</p>
             </div>
             
-            <div class="portfolio-grid">
-                <div class="project-card">
-                    <div class="project-placeholder">
-                        <h3>3D Vizualizace Rodinného Domu</h3>
-                        <p>Moderní architektura, exteriér a interiér</p>
-                    </div>
-                </div>
-                
-                <div class="project-card">
-                    <div class="project-placeholder">
-                        <h3>Bytový Komplex Brno</h3>
-                        <p>Komerční projekt, 3D vizualizace</p>
-                    </div>
-                </div>
-                
-                <div class="project-card">
-                    <div class="project-placeholder">
-                        <h3>Interiérový Design</h3>
-                        <p>Luxusní byt, kompletní návrh</p>
-                    </div>
-                </div>
-                
-                <div class="project-card">
-                    <div class="project-placeholder">
-                        <h3>Architektonické Kresby</h3>
-                        <p>Technické výkresy, půdorysy</p>
-                    </div>
-                </div>
-                
-                <div class="project-card">
-                    <div class="project-placeholder">
-                        <h3>Komerční Objekt</h3>
-                        <p>Ofic building, moderní design</p>
-                    </div>
-                </div>
-                
-                <div class="project-card">
-                    <div class="project-placeholder">
-                        <h3>Villa Project</h3>
-                        <p>Premiérová vila, kompletní vizualizace</p>
-                    </div>
-                </div>
+            <div class="portfolio-gallery">
+                <!-- Dynamicky načtené obrázky -->
+            </div>
+            
+            <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+                <img id="lightbox-img" src="" alt="Portfolio">
+                <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
+                <button class="lightbox-prev" onclick="prevImage()">&larr;</button>
+                <button class="lightbox-next" onclick="nextImage()">&rarr;</button>
             </div>
             
             <div style="margin-top: 40px;">
@@ -311,6 +375,88 @@
     </div>
 
     <script>
+        let currentImageIndex = 0;
+        let portfolioImages = [];
+        
+        // Načte portfolio obrázky
+        function loadPortfolio() {
+            const gallery = document.querySelector('.portfolio-gallery');
+            
+            // Vygeneruj seznam obrázků (29 stránek)
+            for (let i = 1; i <= 29; i++) {
+                const pageNum = i.toString().padStart(2, '0');
+                const imageSrc = `images/page_${pageNum}.jpg`;
+                portfolioImages.push(imageSrc);
+                
+                // Vytvoř galerii item
+                const item = document.createElement('div');
+                item.className = 'portfolio-item';
+                item.onclick = () => openLightbox(i - 1);
+                
+                const img = document.createElement('img');
+                img.src = imageSrc;
+                img.alt = `Portfolio stránka ${i}`;
+                img.loading = 'lazy'; // Lazy loading pro rychlost
+                
+                item.appendChild(img);
+                gallery.appendChild(item);
+            }
+        }
+        
+        // Otevře lightbox s obrázkem
+        function openLightbox(index) {
+            currentImageIndex = index;
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightbox-img');
+            
+            lightboxImg.src = portfolioImages[index];
+            lightbox.style.display = 'flex';
+            document.body.style.overflow = 'hidden'; // Zakáže scrollování
+        }
+        
+        // Zavře lightbox
+        function closeLightbox() {
+            const lightbox = document.getElementById('lightbox');
+            lightbox.style.display = 'none';
+            document.body.style.overflow = 'auto'; // Povol scrollování
+        }
+        
+        // Předchozí obrázek
+        function prevImage() {
+            currentImageIndex = (currentImageIndex - 1 + portfolioImages.length) % portfolioImages.length;
+            document.getElementById('lightbox-img').src = portfolioImages[currentImageIndex];
+        }
+        
+        // Další obrázek
+        function nextImage() {
+            currentImageIndex = (currentImageIndex + 1) % portfolioImages.length;
+            document.getElementById('lightbox-img').src = portfolioImages[currentImageIndex];
+        }
+        
+        // Klávesové zkratky
+        document.addEventListener('keydown', function(e) {
+            const lightbox = document.getElementById('lightbox');
+            if (lightbox.style.display === 'flex') {
+                switch(e.key) {
+                    case 'Escape':
+                        closeLightbox();
+                        break;
+                    case 'ArrowLeft':
+                        prevImage();
+                        break;
+                    case 'ArrowRight':
+                        nextImage();
+                        break;
+                }
+            }
+        });
+        
+        // Načte portfolio při načtení stránky
+        document.addEventListener('DOMContentLoaded', function() {
+            loadPortfolio();
+        });
+        
+        // Fallback funkce (zůstává pro kompatibilitu)
         function showFallback() {
             document.getElementById('pdf-fallback').style.display = 'block';
             document.getElementById('loading').style.display = 'none';
