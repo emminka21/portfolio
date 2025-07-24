@@ -108,6 +108,50 @@
             margin-bottom: 40px;
         }
         
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .project-card {
+            background: #f8f9fa;
+            border-radius: 15px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+        }
+        
+        .project-placeholder {
+            padding: 40px 30px;
+            text-align: center;
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .project-placeholder h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            font-weight: 400;
+        }
+        
+        .project-placeholder p {
+            color: rgba(255,255,255,0.9);
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+        
         .pdf-container {
             margin-top: 40px;
         }
@@ -212,26 +256,56 @@
         <section class="portfolio-section">
             <h2 class="portfolio-title">Portfolio</h2>
             
-            <div class="pdf-container">
-                <iframe 
-                    src="portfolio.pdf" 
-                    class="pdf-viewer"
-                    title="Portfolio Emma Kryštofová"
-                    onload="document.getElementById('loading').style.display='none';"
-                    onerror="showFallback()">
-                </iframe>
-                
-                <div id="loading" style="text-align: center; padding: 40px; color: #7f8c8d;">
-                    <div class="loading"></div>
-                    Načítám portfolio...
+            <div class="portfolio-info">
+                <p style="color: #7f8c8d; margin-bottom: 40px; font-size: 1.1rem;">Několik vybraných projektů z mé práce</p>
+            </div>
+            
+            <div class="portfolio-grid">
+                <div class="project-card">
+                    <div class="project-placeholder">
+                        <h3>3D Vizualizace Rodinného Domu</h3>
+                        <p>Moderní architektura, exteriér a interiér</p>
+                    </div>
                 </div>
                 
-                <div id="pdf-fallback" class="pdf-fallback" style="display: none;">
-                    <h3 style="margin-bottom: 20px; color: #2c3e50;">Portfolio ke stažení</h3>
-                    <p style="margin-bottom: 30px; color: #7f8c8d;">Váš prohlížeč nepodporuje přímé zobrazení PDF.</p>
-                    <a href="portfolio.pdf" class="download-btn" download>📥 Stáhnout Portfolio</a>
-                    <a href="https://docs.google.com/viewer?url=https://emminka21.github.io/portfolio/portfolio.pdf" class="download-btn" target="_blank">👁️ Zobrazit Online</a>
+                <div class="project-card">
+                    <div class="project-placeholder">
+                        <h3>Bytový Komplex Brno</h3>
+                        <p>Komerční projekt, 3D vizualizace</p>
+                    </div>
                 </div>
+                
+                <div class="project-card">
+                    <div class="project-placeholder">
+                        <h3>Interiérový Design</h3>
+                        <p>Luxusní byt, kompletní návrh</p>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-placeholder">
+                        <h3>Architektonické Kresby</h3>
+                        <p>Technické výkresy, půdorysy</p>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-placeholder">
+                        <h3>Komerční Objekt</h3>
+                        <p>Ofic building, moderní design</p>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-placeholder">
+                        <h3>Villa Project</h3>
+                        <p>Premiérová vila, kompletní vizualizace</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="margin-top: 40px;">
+                <a href="portfolio.pdf" class="download-btn" download>📥 Stáhnout kompletní portfolio PDF</a>
             </div>
         </section>
     </div>
