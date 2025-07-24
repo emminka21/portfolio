@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emma Kryštofová - 3D Architektura & Vizualizace | Portfolio</title>
+    <meta name="description" content="Profesionální 3D vizualizace, architektonické kresby a design. Emma Kryštofová - Brno a okolí. Rychlé dodání, photorealistická kvalita.">
+    <meta name="keywords" content="3D vizualizace, architektura, Brno, design, vizualizace exteriéru, interiéru, architektonické kresby">
+    
+    <!-- Open Graph pro social media-->
+    <meta property="og:title" content="Emma Kryštofová - 3D Architektura & Vizualizace">
+    <meta property="og:description" content="Profesionální 3D vizualizace a architektonické kresby v Brně">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://emminka21.github.io/portfolio/">
+    
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #e74c3c;
+            --secondary-color: #3498db;
+            --background-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --card-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--background-gradient);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* Header */
+        .header {
+            background: rgba(255,255,255,0.95);
+            padding: 40px;
+            border-radius: 20px;
+            margin-bottom: 30px;
+            text-align: center;
+            box-shadow: var(--card-shadow);
+            backdrop-filter: blur(10px);
+        }
+        
+        .header h1 {
+            color: var(--primary-color);
+            font-size: 3em;
+            margin-bottom: 15px;
+            font-weight: 300;
+        }
+        
+        .header .subtitle {
+            color: var(--accent-color);
+            font-size: 1.4em;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+        
+        .header .location {
+            background: var(--accent-color);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 30px;
+            display: inline-block;
+            font-weight: bold;
+            margin: 10px 5px;
+        }
+        
+        .contact-info {
+            margin-top: 25px;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--primary-color);
+            font-weight: 500;
+        }
+        
+        .contact-item a {
+            color: var(--secondary-color);
+            text-decoration: none;
+        }
+        
+        .contact-item a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Services */
+        .services {
+            background: rgba(255,255,255,0.95);
+            padding: 30px;
+            border-radius: 20px;
+            margin-bottom: 30px;
+            box-shadow: var(--card-shadow);
+        }
+        
+        .services h2 {
+            color: var(--primary-color);
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 2.2em;
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+        
+        .service-card {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 15px;
+            border-left: 6px solid var(--secondary-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+        
+        .service-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+        
+        .service-card .price {
+            color: var(--accent-color);
+            font-weight: bold;
+            font-size: 1.2em;
+            margin-top: 10px;
+        }
+        
+        /* Portfolio Section */
+        .portfolio-section {
+            background: rgba(255,255,255,0.95);
+            padding: 40px;
+            border-radius: 20px;
+            margin-bottom: 30px;
+            box-shadow: var(--card-shadow);
+            text-align: center;
+        }
+        
+        .portfolio-section h2 {
+            color: var(--primary-color);
+            margin-bottom: 25px;
+            font-size: 2.5em;
+        }
+        
+        .portfolio-description {
+            font-size: 1.1em;
+            color: #666;
+            margin-bottom: 30px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        /* PDF Viewer */
+        .pdf-container {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 30px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .pdf-viewer {
+            width: 100%;
+            height: 800px;
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .pdf-fallback {
+            text-align: center;
+            padding: 40px;
+            background: #e9ecef;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        
+        .download-btn {
+            background: var(--accent-color);
+            color: white;
+            padding: 15px 35px;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.1em;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            margin: 15px;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+        
+        .download-btn:hover {
+            background: #c0392b;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(231, 76, 60, 0.3);
+        }
+        
+        .view-online-btn {
+            background: var(--secondary-color);
+        }
+        
+        .view-online-btn:hover {
+            background: #2980b9;
+            box-shadow: 0 8px 20px rgba(52, 152, 219, 0.3);
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            background: rgba(255,255,255,0.95);
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: var(--card-shadow);
+        }
+        
+        .cta-section h2 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-size: 2.2em;
+        }
+        
+        .cta-description {
+            font-size: 1.2em;
+            color: #666;
+            margin-bottom: 30px;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .cta-btn {
+            background: var(--accent-color);
+            color: white;
+            padding: 18px 40px;
+            border: none;
+            border-radius: 35px;
+            font-size: 1.2em;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            min-width: 200px;
+        }
+        
+        .cta-btn:hover {
+            background: #c0392b;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(231, 76, 60, 0.4);
+        }
+        
+        .cta-btn.secondary {
+            background: var(--secondary-color);
+        }
+        
+        .cta-btn.secondary:hover {
+            background: #2980b9;
+            box-shadow: 0 10px 25px rgba(52, 152, 219, 0.4);
+        }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 30px;
+            color: rgba(255,255,255,0.8);
+            margin-top: 40px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.2em;
+            }
+            
+            .header .subtitle {
+                font-size: 1.2em;
+            }
+            
+            .contact-info {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .pdf-viewer {
+                height: 600px;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+        
+        /* Loading animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid var(--accent-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1>Emma Kryštofová</h1>
+            <p class="subtitle">3D Architektura & Vizualizace</p>
+            <div class="location">📍 Brno - Říčany</div>
+            
+            <div class="contact-info">
+                <div class="contact-item">
+                    <span>📞</span>
+                    <a href="tel:+420123456789">+420 123 456 789</a>
+                </div>
+                <div class="contact-item">
+                    <span>📧</span>
+                    <a href="mailto:emma@example.com">emma@example.com</a>
+                </div>
+                <div class="contact-item">
+                    <span>💼</span>
+                    <a href="https://linkedin.com/in/emmakrystofova" target="_blank">LinkedIn</a>
+                </div>
+            </div>
+        </header>
+
+        <!-- Services -->
+        <section class="services">
+            <h2>🎯 Naše služby</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <h3>🏠 3D Vizualizace Exteriéru</h3>
+                    <p>Photorealistické vizualizace rodinných domů, bytových domů a komerčních objektů. Včetně okolní zástavby a krajinných úprav.</p>
+                    <div class="price">8 000 - 12 000 Kč</div>
+                </div>
+                
+                <div class="service-card">
+                    <h3>🛋️ 3D Vizualizace Interiéru</h3>
+                    <p>Detailní vizualizace interiérů s realistickým osvětlením, materiály a nábytkem. Ideální pro prezentaci designových návrhů.</p>
+                    <div class="price">6 000 - 10 000 Kč</div>
+                </div>
+                
+                <div class="service-card">
+                    <h3>📐 Architektonické Kresby</h3>
+                    <p>Půdorysy, řezy, pohledy a technické výkresy. Přesné a čitelné dokumentace pro stavební povolení.</p>
+                    <div class="price">2 000 - 4 000 Kč</div>
+                </div>
+                
+                <div class="service-card">
+                    <h3>📦 Kompletní Balíček</h3>
+                    <p>3D vizualizace + architektonické kresby + konzultace. Vše pro váš projekt pod jednou střechou.</p>
+                    <div class="price">20 000 - 30 000 Kč</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Portfolio -->
+        <section class="portfolio-section">
+            <h2>📁 Portfolio</h2>
+            <p class="portfolio-description">
+                Prohlédněte si výběr mých nejlepších projektů z oblasti 3D vizualizací a architektonických kreseb. 
+                Portfolio obsahuje realizované projekty rodinných domů, bytových komplexů, interiérových návrhů a technických výkresů.
+            </p>
+            
+            <div class="pdf-container">
+                <iframe 
+                    src="portfolio.pdf" 
+                    class="pdf-viewer"
+                    title="Portfolio Emma Kryštofová - 3D Architektura"
+                    onload="document.getElementById('loading').style.display='none';"
+                    onerror="showFallback()">
+                </iframe>
+                
+                <div id="loading" style="text-align: center; padding: 20px;">
+                    <div class="loading"></div>
+                    <p>Načítám portfolio...</p>
+                </div>
+                
+                <div id="pdf-fallback" class="pdf-fallback" style="display: none;">
+                    <h3>📄 Portfolio ke stažení</h3>
+                    <p>Váš prohlížeč nepodporuje přímé zobrazení PDF. Můžete si portfolio stáhnout nebo zobrazit online.</p>
+                    <a href="portfolio.pdf" class="download-btn" download>📥 Stáhnout Portfolio</a>
+                    <a href="https://docs.google.com/viewer?url=https://emminka21.github.io/portfolio/portfolio.pdf" class="download-btn view-online-btn" target="_blank">👁️ Zobrazit Online</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <section class="cta-section">
+            <h2>🚀 Pojďme spolupracovat!</h2>
+            <p class="cta-description">
+                Máte projekt, který potřebuje profesionální vizualizaci? Kontaktujte mě pro cenovou nabídku a konzultaci zdarma.
+            </p>
+            
+            <div class="cta-buttons">
+                <a href="tel:+420123456789" class="cta-btn">📞 Zavolat</a>
+                <a href="mailto:emma@example.com?subject=Poptávka 3D vizualizace&body=Dobrý den, mám zájem o:" class="cta-btn secondary">📧 Napsat email</a>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2024 Emma Kryštofová - 3D Architektura & Vizualizace | Brno - Říčany</p>
+        <p>Vytvořeno s ❤️ pro profesionální prezentaci</p>
+    </footer>
+
+    <script>
+        function showFallback() {
+            document.getElementById('pdf-fallback').style.display = 'block';
+            document.getElementById('loading').style.display = 'none';
+        }
+        
+        // Smooth scrolling for internal links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Analytics tracking (můžeš přidat Google Analytics později)
+        function trackContact(method) {
+            console.log('Contact method used:', method);
+            // Zde můžeš přidat Google Analytics tracking
+        }
+        
+        // Add click tracking to contact buttons
+        document.querySelectorAll('.cta-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                trackContact(this.textContent.includes('Zavolat') ? 'phone' : 'email');
+            });
+        });
+    </script>
+</body>
+</html>
